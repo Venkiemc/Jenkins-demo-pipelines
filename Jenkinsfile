@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.8.6' // Adjust names as configured in Jenkins
-        jdk 'JDK 11'
+        maven 'Maven 3.9.9' // Use the label you configured in Jenkins
+        jdk 'JDK 21'         // This should match Jenkins tool config
     }
 
     environment {
-        SONARQUBE_SERVER = 'My SonarQube Server' // Jenkins configured name
+        SONARQUBE_SERVER = 'My SonarQube Server'
     }
 
     stages {
