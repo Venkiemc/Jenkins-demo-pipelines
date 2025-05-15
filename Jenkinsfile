@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.9.9' // Use the label you configured in Jenkins
-        jdk 'JDK 21'         // This should match Jenkins tool config
+        jdk 'JDK 21'
+        maven 'Maven 3.9.9'
     }
 
     environment {
@@ -34,7 +34,7 @@ pipeline {
                 withSonarQubeEnv("${SONARQUBE_SERVER}") {
                     sh '''
                         mvn sonar:sonar \
-                          -Dsonar.projectKey=sonarqube-jenkins-demo \
+                          -Dsonar.projectKey=devops-helper-app \
                           -Dsonar.host.url=http://your-sonarqube-server:9000 \
                           -Dsonar.login=your-token
                     '''
