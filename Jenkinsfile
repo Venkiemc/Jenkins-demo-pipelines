@@ -2,58 +2,43 @@ pipeline {
     agent any
 
     tools {
-        jdk 'JDK 21'
-        maven 'Maven 3.9.9'
-    }
-
-    environment {
-        SONARQUBE_SERVER = 'My SonarQube Server'
+        maven "maven3.9.9"
+        jdk "JDK21"
     }
 
     stages {
-        stage('Checkout') {
+        stage('SCM') {
             steps {
-                checkout scm
+                git branch: 'main', url: 'https://github.com/Venkiemc/sonarqube-jenkins-project.git'
             }
         }
 
-        stage('Build') {
+        stage('UNIT TEST') {
             steps {
-                sh 'mvn clean compile'
+                bat 'mvn test'
             }
         }
 
-        stage('Test') {
+        stage('Checkstyle Analysis') {
             steps {
-                sh 'mvn test'
+                bat 'mvn checkstyle:checkstyle'
             }
         }
 
-        stage('SonarQube Analysis') {
+        stage('Archive Artifacts') {
             steps {
-                withSonarQubeEnv("${SONARQUBE_SERVER}") {
-                    sh '''
-                        mvn sonar:sonar \
-                          -Dsonar.projectKey=devops-helper-app \
-                          -Dsonar.host.url=http://your-sonarqube-server:9000 \
-                          -Dsonar.login=your-token
-                    '''
-                }
-            }
-        }
-
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 1, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
+                echo 'Now Archiving it...'
+                archiveArtifacts artifacts: '**/target/*.jar'
             }
         }
     }
 
     post {
-        always {
-            junit 'target/surefire-reports/*.xml'
+        success {
+            echo 'Pipeline completed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed.'
         }
     }
 }
