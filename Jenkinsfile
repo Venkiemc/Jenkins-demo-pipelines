@@ -13,9 +13,9 @@ pipeline {
             }
         }
 
-        stage('UNIT TEST') {
+        stage('Build and Unit Test') {
             steps {
-                bat 'mvn test'
+                bat 'mvn clean package'  // This will generate the JAR and run tests
             }
         }
 
@@ -28,7 +28,7 @@ pipeline {
         stage('Archive Artifacts') {
             steps {
                 echo 'Now Archiving it...'
-                archiveArtifacts artifacts: '**/target/*.jar'
+                archiveArtifacts artifacts: '**/target/*.jar'  // Archives the JAR file
             }
         }
     }
