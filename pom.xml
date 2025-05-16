@@ -7,6 +7,7 @@
   <groupId>com.devops</groupId>
   <artifactId>Jenkins-demo-pipelines</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>  <!-- Explicitly specify packaging type as jar -->
 
   <properties>
     <maven.compiler.source>21</maven.compiler.source>
@@ -33,6 +34,9 @@
             <goals>
               <goal>jar</goal>  <!-- Default goal for generating JAR -->
             </goals>
+            <configuration>
+              <!-- You can add custom configurations here if needed -->
+            </configuration>
           </execution>
         </executions>
       </plugin>
