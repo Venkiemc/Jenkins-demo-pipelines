@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('SCM') {
             steps {
-                git branch: 'main', url: 'https://github.com/Venkiemc/sonarqube-jenkins-project.git'
+                git branch: 'main', url: 'https://github.com/Venkiemc/Jenkins-demo-pipelines.git'
             }
         }
 
