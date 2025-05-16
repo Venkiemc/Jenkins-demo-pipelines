@@ -10,7 +10,7 @@ pipeline {
 
         stage('Build and Unit Test') {
             steps {
-                bat 'mvn clean package'  // This will generate the JAR and run tests
+                sh 'mvn clean package'  // This will generate the JAR and run tests
             }
         }
         stage('Done') {
